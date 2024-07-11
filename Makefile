@@ -1,5 +1,7 @@
 SHELL := /usr/bin/env bash
 
+include .env
+
 ifeq ($(strip $(findstring Darwin,$(shell uname -a 2>&1 ; ))),)
 	_G :=
 else
@@ -57,6 +59,7 @@ build:
 	docker build \
 		--rm \
 		--compress \
+        --platform linux/amd64 \
 		$(CACHE_FLAG) \
 		-t $(BUILD_REPO_NAME):latest \
 		-t $(BUILD_LOCAL_TAG) \
@@ -97,8 +100,8 @@ push:
 
 up:
 	$(call tc,bringing up compose)
-	docker-compose up --abort-on-container-exit ${BUILD_DISTRIBUTION} \
-			|| docker-compose stop ${BUILD_DISTRIBUTION} pg-${BUILD_DISTRIBUTION}
+	docker-compose up ${BUILD_DISTRIBUTION} -d 
+#|| docker-compose stop ${BUILD_DISTRIBUTION} pg-${BUILD_DISTRIBUTION}
 
 up-allpg:
 	$(call tc,bringing up compose)

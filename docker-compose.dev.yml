@@ -1,0 +1,40 @@
+services:
+  mail:
+    platform: linux/amd64
+    image: mailhog/mailhog
+    logging:
+      driver: 'none'  # disable saving logs
+    ports:
+      - 8025:8025 # web ui
+
+  community:
+    platform: linux/amd64
+    environment:
+      - SMTP_HOST=mail
+      - SMTP_PORT=1025
+    depends_on:
+      - mail
+
+  allpg:
+    profiles:
+      - do-not-start
+
+  pg-allpg:
+    profiles:
+      - do-not-start
+
+  enterprise:
+    profiles:
+      - do-not-start
+
+  pg-enterprise:
+    profiles:
+      - do-not-start
+
+  lims_starter:
+    profiles:
+      - do-not-start
+
+  pg-lims_starter:
+    profiles:
+      - do-not-start

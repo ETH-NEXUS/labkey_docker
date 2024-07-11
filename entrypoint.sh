@@ -317,6 +317,11 @@ main() {
     --server.ssl.key-store="$TOMCAT_KEYSTORE_FILENAME" \
     --server.ssl.key-alias="$keystore_alias" \
     \
+    --add-opens=java.base/java.lang=ALL-UNNAMED \
+    --add-opens=java.base/java.io=ALL-UNNAMED \
+    --add-opens=java.base/java.util=ALL-UNNAMED \
+    --add-opens=java.desktop/java.awt.font=ALL-UNNAMED \
+    --add-opens=java.base/java.text=ALL-UNNAMED \
     ;
 
 }
